@@ -1,16 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Native Carousel</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Native Carousel</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="carousel">
+        <div class="carousel__item bg-yellow active">
+          <p>Caraousel 1</p>
+        </div>
+        <div class="carousel__item bg-green">
+          <p>Caraousel 2</p>
+        </div>
+        <div class="carousel__item bg-brown">
+          <p>Caraousel 3</p>
+        </div>
+        <div class="carousel__item bg-blue">
+          <p>Caraousel 4</p>
+        </div>
+        <div class="carousel__item bg-yellow">
+          <p>Caraousel 5</p>
+        </div>
+        <div class="carousel__item bg-blue">
+          <p>Caraousel 6</p>
+        </div>
+      </div>
 
-  <div class="container">
-    <!-- create items -->
-  </div>
-  
-</body>
+      <div class="carousel__buttons">
+        <button onclick="leftClick()" type="button" class="carousel-button">
+          &#10094;
+        </button>
+        <button onclick="rightClick()" type="button" class="carousel-button">
+          &#10095;
+        </button>
+      </div>
+    </div>
+
+    <!-- lets play -->
+    <script>
+      const carousel = document.querySelector(".carousel");
+      const carouselItem = document.querySelectorAll(".carousel__item");
+      const [btnLeft, btnRight] = document.querySelectorAll(".carousel-botton");
+
+      let length = carouselItem.length;
+      let starting = 0;
+      let translateX = 0;
+
+      // btn left event
+      const leftClick = () => {
+        let calc = starting > 0 ? (starting - 1) % length : length;
+        if (starting > 0) translateX = starting === 1 ? 0 : translateX - 100.5;
+        else if (starting <= 0) {
+          translateX = 100.5 * (length - 1);
+          calc = length - 1;
+        }
+
+        starting = slide({
+          show: calc,
+          disable: starting,
+          translateX: translateX,
+        });
+      };
+
+      // btn right
+      const rightClick = () => {
+        let calculate = (starting + 1) % length;
+        if (starting >= length - 1) {
+          calculate = 0;
+          translateX = 0;
+        } else {
+          translateX += 100.5;
+        }
+
+        starting = slide({
+          show: calculate,
+          disable: starting,
+          translateX: translateX,
+        });
+      };
+
+      function slide(options) {
+        function active(_item) {
+          carouselItem[_item].classList.toggle("active");
+        }
+        function inActive(_item) {
+          carouselItem[_item].classList.toggle("active");
+        }
+
+        active(options.disable);
+        inActive(options.show);
+
+        document.querySelectorAll(".carousel__item").forEach((item, index) => {
+          if (index === options.show) {
+            item.style.transform = `translateX(-${options.translateX}%) scale(1)`;
+          } else {
+            item.style.transform = `translateX(-${options.translateX}%) scale(0.9)`;
+          }
+        });
+
+        return options.show;
+      }
+    </script>
+  </body>
 </html>
