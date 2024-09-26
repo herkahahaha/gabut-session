@@ -1,0 +1,66 @@
+html {
+  margin: 2rem auto;
+  width: 460px;
+  @media screen and (min-width: 768px) {
+    width: 320px;
+  }
+}
+
+
+h1 {
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.container {
+  width: 100%;
+}
+
+.container img {
+  width: 100%;
+  height: auto;
+}
+
+
+#progress {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 4px;
+  background: #df03fc; 
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+#progress::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 30px;
+  height: 30px;
+  background: #df03fc; 
+  border: 8px solid #df03fc;
+  border-radius: 50%;
+  box-shadow: 0 5px 5px rgba(255,26,26, 0.22);
+  
+}
+
+.control {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.control div {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background: #f4f4f4;
+  border-radius: 50%;
+  border: 4px solid #df03fc;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.control div:nth-child(2) {
+  transform: scale(1.5);
+}

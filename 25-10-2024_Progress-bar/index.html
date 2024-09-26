@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>We Doing Native Stuff</h1>
+  <div class="container">
+    <img src="./blu-cover.jpg" width="250" height="250" alt="cover">
+    <audio id="song">
+      <source src="./Zachz Winner - blu [NCS Release].mp3" type="audio/mp3">
+    </audio>
+    <input type="range" value="0" id="progress">
+
+    <div class="control">
+      <div><i class="fas fa-backward"></i></div>
+      <div onclick="playMusic()" ><i class="fas fa-play" id="ctrlIcon"></i></div>
+      <div><i class="fas fa-forward"></i></div>
+    </div>
+  </div>
+
+  <script>
+    let barProggress = document.getElementById("progress")
+    let song = document.getElementById("song")
+    let ctrlIcon = document.getElementById("ctrlIcon")
+
+    song.onloadedmetadata = function() {
+      barProggress.max = song.duration;
+      barProggress.value = song.currentTime;
+    }
+
+// music action function 
+    function playMusic () {
+
+      if(ctrlIcon.classList.contains("fa-pause")){
+        song.pause();
+        ctrlIcon.classList.remove("fa-pause")
+        ctrlIcon.classList.add("fa-play")
+      } else {
+        song.play();
+        ctrlIcon.classList.add("fa-pause")
+        ctrlIcon.classList.remove("fa-play")
+      }
+
+    }
+
+// bar progress length == with music length
+    if(song.play()) {
+      setInterval(() => {
+        barProggress.value = song.currentTime
+      },500)
+    }
+
+// can play the music using onchange the progress bar
+
+barProggress.onchange = function() {
+  song.play()
+  song.currentTime = barProggress.value
+  ctrlIcon.classList.add("fa-pause")
+  ctrlIcon.classList.remove("fa-play")
+
+}
+
+  </script>
+</body>
+</html>
